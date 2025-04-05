@@ -126,6 +126,7 @@ const Home = async () => {
                 </div>
                 
                 <div className="relative p-2.5">
+                  {/* Card content */}
                   <h4 className="line-clamp-1 font-medium text-white group-hover:text-primary">
                     {barbershop.name}
                   </h4>
