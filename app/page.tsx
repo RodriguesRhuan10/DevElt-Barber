@@ -125,21 +125,21 @@ const Home = async () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 </div>
                 
-                <div className="relative p-3">
+                <div className="relative p-2.5">
                   <h4 className="line-clamp-1 font-medium text-white group-hover:text-primary">
                     {barbershop.name}
                   </h4>
-                  <p className="line-clamp-1 text-xs text-gray-400">
+                  <p className="line-clamp-1 mt-0.5 text-xs text-gray-400">
                     {barbershop.address}
                   </p>
-                  <div className="mt-2 flex items-center justify-between">
-                    <Badge variant="secondary" className="inline-flex items-center gap-1 bg-primary/10 text-[10px] text-primary">
+                  <div className="mt-3 flex items-center justify-between gap-1">
+                    <Badge variant="secondary" className="inline-flex items-center gap-1.5 bg-primary/10 pl-0.5 pr-2 py-[2px] text-[10px] text-primary">
                       <Star size={8} className="fill-primary text-primary" />
                       5,0
                     </Badge>
                     <Button
                       variant="secondary"
-                      className="h-7 rounded-full bg-primary/10 px-3 text-xs font-medium text-primary transition-colors hover:bg-primary hover:text-white"
+                      className="h-7 rounded-full bg-primary/10 px-2.5 text-xs font-medium text-primary transition-colors hover:bg-primary hover:text-white"
                       asChild
                     >
                       <Link href={`/barbershops/${barbershop.id}`}>
