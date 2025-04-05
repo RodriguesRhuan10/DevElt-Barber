@@ -12,8 +12,17 @@ import {
   TableRow,
 } from "@/app/_components/ui/table"
 import { Input } from "@/app/_components/ui/input"
-import { Search } from "lucide-react"
+import { Search, Pencil } from "lucide-react"
 import Header from "@/app/_components/header"
+import { Button } from "@/app/_components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/app/_components/ui/dialog"
+import { toast } from "sonner"
 
 interface User {
   id: string
@@ -29,6 +38,41 @@ export default function ClientsPage() {
   const [filteredUsers, setFilteredUsers] = useState<User[]>([])
   const [searchQuery, setSearchQuery] = useState("")
   const [isLoading, setIsLoading] = useState(true)
+  const [userBeingEdited, setUserBeingEdited] = useState<User | null>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+
+  const handleUpdateUser = async (userId: string, updatedData: Partial<User>) => {
+    try {
+      const response = await fetch(`/api/users/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      })
+
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar usuário")
+      }
+
+      const updatedUser = await response.json()
+      
+      // Atualiza a lista de usuários
+      setUsers(users.map(user => 
+        user.id === userId ? { ...user, ...updatedUser } : user
+      ))
+      
+      setFilteredUsers(filteredUsers.map(user => 
+        user.id === userId ? { ...user, ...updatedUser } : user
+      ))
+
+      toast.success("Usuário atualizado com sucesso!")
+      setIsEditDialogOpen(false)
+    } catch (error) {
+      console.error(error)
+      toast.error("Erro ao atualizar usuário")
+    }
+  }
 
   useEffect(() => {
     async function loadUsers() {
@@ -105,18 +149,19 @@ export default function ClientsPage() {
                   <TableHead>Email</TableHead>
                   <TableHead>Telefone</TableHead>
                   <TableHead>Data de Cadastro</TableHead>
+                  <TableHead className="w-[100px]">Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {isLoading ? (
                   <TableRow>
-                    <TableCell colSpan={4} className="text-center">
+                    <TableCell colSpan={5} className="text-center">
                       Carregando...
                     </TableCell>
                   </TableRow>
                 ) : filteredUsers.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={4} className="text-center">
+                    <TableCell colSpan={5} className="text-center">
                       Nenhum cliente encontrado
                     </TableCell>
                   </TableRow>
@@ -133,6 +178,61 @@ export default function ClientsPage() {
                       <TableCell>{user.email}</TableCell>
                       <TableCell>{user.phoneNumber || "Não informado"}</TableCell>
                       <TableCell>{formatDate(user.createdAt)}</TableCell>
+                      <TableCell>
+                        <Dialog open={isEditDialogOpen && userBeingEdited?.id === user.id} onOpenChange={(open) => {
+                          setIsEditDialogOpen(open)
+                          if (!open) setUserBeingEdited(null)
+                        }}>
+                          <DialogTrigger asChild>
+                            <Button 
+                              variant="outline" 
+                              size="icon"
+                              className="h-8 w-8"
+                              onClick={() => setUserBeingEdited(user)}
+                            >
+                              <Pencil className="h-4 w-4" />
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>Editar Cliente</DialogTitle>
+                            </DialogHeader>
+                            <div className="space-y-4 py-4">
+                              <div className="space-y-2">
+                                <label className="text-sm font-medium">Nome</label>
+                                <Input
+                                  defaultValue={userBeingEdited?.name}
+                                  onChange={(e) => setUserBeingEdited(prev => prev ? {...prev, name: e.target.value} : null)}
+                                />
+                              </div>
+                              <div className="space-y-2">
+                                <label className="text-sm font-medium">Email</label>
+                                <Input
+                                  defaultValue={userBeingEdited?.email}
+                                  onChange={(e) => setUserBeingEdited(prev => prev ? {...prev, email: e.target.value} : null)}
+                                />
+                              </div>
+                              <div className="space-y-2">
+                                <label className="text-sm font-medium">Telefone</label>
+                                <Input
+                                  defaultValue={userBeingEdited?.phoneNumber || ""}
+                                  onChange={(e) => setUserBeingEdited(prev => prev ? {...prev, phoneNumber: e.target.value} : null)}
+                                />
+                              </div>
+                              <Button 
+                                className="w-full"
+                                onClick={() => userBeingEdited && handleUpdateUser(userBeingEdited.id, {
+                                  name: userBeingEdited.name,
+                                  email: userBeingEdited.email,
+                                  phoneNumber: userBeingEdited.phoneNumber,
+                                })}
+                              >
+                                Salvar Alterações
+                              </Button>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      </TableCell>
                     </TableRow>
                   ))
                 )}
