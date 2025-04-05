@@ -8,6 +8,8 @@ import { Textarea } from "@/app/_components/ui/textarea";
 import { useSession } from "next-auth/react";
 import { useState, useRef } from "react";
 import { toast } from "sonner";
+import Header from "@/app/_components/header";
+import { HelpCircle } from "lucide-react";
 
 export default function SupportPage() {
   const { data: session } = useSession();
@@ -67,105 +69,118 @@ export default function SupportPage() {
   };
 
   return (
-    <div className="container mx-auto p-4 lg:p-8">
-      <Card className="p-6">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-center">Suporte Técnico</h2>
-          <p className="text-muted-foreground text-center mt-2">
-            Como podemos ajudar você hoje?
-          </p>
-        </div>
-
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium">
-              Nome
-            </label>
-            <Input
-              id="name"
-              name="name"
-              defaultValue={session?.user?.name || ""}
-              required
-              disabled
-            />
+    <>
+      <Header />
+      <div className="flex min-h-[calc(100vh-72px)] items-center justify-center p-4">
+        <Card className="w-full max-w-[500px] p-5">
+          <div className="mb-5 flex flex-col items-center gap-2">
+            <div className="rounded-full bg-primary/10 p-2">
+              <HelpCircle className="h-6 w-6 text-primary" />
+            </div>
+            <h2 className="text-xl font-bold">Suporte Técnico</h2>
+            <p className="text-sm text-muted-foreground">
+              Como podemos ajudar você hoje?
+            </p>
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">
-              E-mail
-            </label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              defaultValue={session?.user?.email || ""}
-              required
-            />
-          </div>
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1">
+                <label htmlFor="name" className="text-xs font-medium">
+                  Nome
+                </label>
+                <Input
+                  id="name"
+                  name="name"
+                  defaultValue={session?.user?.name || ""}
+                  required
+                  disabled
+                  className="h-9"
+                />
+              </div>
 
-          <div className="space-y-2">
-            <label htmlFor="phone" className="text-sm font-medium">
-              Telefone (opcional)
-            </label>
-            <Input
-              id="phone"
-              name="phone"
-              type="tel"
-              placeholder="(00) 00000-0000"
-            />
-          </div>
+              <div className="space-y-1">
+                <label htmlFor="email" className="text-xs font-medium">
+                  E-mail
+                </label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  defaultValue={session?.user?.email || ""}
+                  required
+                  className="h-9"
+                />
+              </div>
+            </div>
 
-          <div className="space-y-2">
-            <label htmlFor="type" className="text-sm font-medium">
-              Tipo de Suporte
-            </label>
-            <Select required value={type} onValueChange={setType}>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione o tipo de suporte" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="agendamento">Agendamento</SelectItem>
-                <SelectItem value="pagamento">Pagamento</SelectItem>
-                <SelectItem value="tecnico">Problema Técnico</SelectItem>
-                <SelectItem value="duvida">Dúvida sobre Serviços</SelectItem>
-                <SelectItem value="reclamacao">Reclamação</SelectItem>
-                <SelectItem value="sugestao">Sugestão</SelectItem>
-                <SelectItem value="outros">Outros</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1">
+                <label htmlFor="phone" className="text-xs font-medium">
+                  Telefone (opcional)
+                </label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="(00) 00000-0000"
+                  className="h-9"
+                />
+              </div>
 
-          <div className="space-y-2">
-            <label htmlFor="message" className="text-sm font-medium">
-              Mensagem
-            </label>
-            <Textarea
-              id="message"
-              name="message"
-              placeholder="Descreva sua dúvida ou problema..."
-              required
-              className="min-h-[120px]"
-            />
-          </div>
+              <div className="space-y-1">
+                <label htmlFor="type" className="text-xs font-medium">
+                  Tipo de Suporte
+                </label>
+                <Select required value={type} onValueChange={setType}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Selecione o tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="agendamento">Agendamento</SelectItem>
+                    <SelectItem value="pagamento">Pagamento</SelectItem>
+                    <SelectItem value="tecnico">Problema Técnico</SelectItem>
+                    <SelectItem value="duvida">Dúvida sobre Serviços</SelectItem>
+                    <SelectItem value="reclamacao">Reclamação</SelectItem>
+                    <SelectItem value="sugestao">Sugestão</SelectItem>
+                    <SelectItem value="outros">Outros</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
 
-          <div className="space-y-2">
-            <label htmlFor="attachment" className="text-sm font-medium">
-              Anexar Imagem (opcional)
-            </label>
-            <Input
-              id="attachment"
-              name="attachment"
-              type="file"
-              accept="image/*"
-              className="cursor-pointer"
-            />
-          </div>
+            <div className="space-y-1">
+              <label htmlFor="message" className="text-xs font-medium">
+                Mensagem
+              </label>
+              <Textarea
+                id="message"
+                name="message"
+                placeholder="Descreva sua dúvida ou problema..."
+                required
+                className="min-h-[100px] resize-none"
+              />
+            </div>
 
-          <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={loading}>
-            {loading ? "Enviando..." : "Enviar Mensagem"}
-          </Button>
-        </form>
-      </Card>
-    </div>
+            <div className="space-y-1">
+              <label htmlFor="attachment" className="text-xs font-medium">
+                Anexar Imagem (opcional)
+              </label>
+              <Input
+                id="attachment"
+                name="attachment"
+                type="file"
+                accept="image/*"
+                className="h-9 cursor-pointer"
+              />
+            </div>
+
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? "Enviando..." : "Enviar Mensagem"}
+            </Button>
+          </form>
+        </Card>
+      </div>
+    </>
   );
 } 
