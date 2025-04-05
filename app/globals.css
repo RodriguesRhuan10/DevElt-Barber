@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .dark {
+    --background: 225 9% 9%;
+    --foreground: 210 40% 98%;
+
+    --card: 219 34% 13%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 228 9% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 252 100% 69%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 252 53% 30%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 228 6% 16%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 228 6% 16%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 228 6% 16%;
+    --input: 228 6% 16%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border antialiased;
+  }
+  html {
+    @apply h-full scroll-smooth;
+  }
+  body {
+    @apply h-full bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .bg-custom-dark {
+    background-color: rgb(13 20 30 / 40%);
+  }
+  
+  .bg-custom-dark-50 {
+    background-color: rgb(13 20 30 / 50%);
+  }
+  
+  .bg-custom-dark-80 {
+    background-color: rgb(13 20 30 / 80%);
+  }
+  
+  .hover\:bg-custom-dark:hover {
+    background-color: rgb(13 20 30 / 40%);
+  }
+  
+  .hover\:bg-custom-dark-80:hover {
+    background-color: rgb(13 20 30 / 80%);
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Estilos do Toast */
+  [data-sonner-toaster][data-position="bottom-right"] {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  [data-sonner-toast] {
+    padding: 16px;
+  }
+
+  [data-sonner-toast][data-type="success"] [data-icon] {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    border: 1px solid #e2e8f0;
+  }
+
+  [data-sonner-toast] [data-close-button] {
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+  }
+
+  [data-sonner-toast] [data-timer] {
+    background: #e2e8f0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+  
+  .card {
+    @apply rounded-xl border border-gray-800 bg-gray-900/95 backdrop-blur;
+  }
+  
+  .input {
+    @apply h-12 w-full rounded-xl border-gray-800 bg-gray-900/50 px-4 text-white placeholder:text-gray-400 focus:border-primary focus:ring-primary;
+  }
+  
+  .heading-1 {
+    @apply text-2xl font-bold text-white sm:text-3xl lg:text-4xl;
+  }
+  
+  .heading-2 {
+    @apply text-xl font-semibold text-white sm:text-2xl;
+  }
+  
+  .heading-3 {
+    @apply text-lg font-medium text-white sm:text-xl;
+  }
+  
+  .text-muted {
+    @apply text-sm text-gray-400;
+  }
+}
