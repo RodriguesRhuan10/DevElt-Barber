@@ -6,6 +6,7 @@ import { Button } from "@/app/_components/ui/button"
 import { Input } from "@/app/_components/ui/input"
 import { Label } from "@/app/_components/ui/label"
 import { AuthLayout } from "@/app/_components/auth-layout"
+import { User, Mail, Phone, Lock } from "lucide-react"
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -58,63 +59,104 @@ export default function RegisterPage() {
       footerLinkText="Faça login"
       footerLinkHref="/login"
     >
-      <form onSubmit={onSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="name">Nome</Label>
-          <Input
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Seu nome completo"
-            required
-          />
-        </div>
+      <form onSubmit={onSubmit} className="space-y-6">
+        <div className="space-y-5">
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-sm font-medium text-gray-300">
+              Nome
+            </Label>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <User className="h-5 w-5 text-gray-500 group-focus-within:text-primary transition-colors" />
+              </div>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Seu nome completo"
+                className="pl-10 bg-gray-800/50 border-gray-700/50 focus:border-primary focus:ring-primary/30 transition-all"
+                required
+              />
+            </div>
+          </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="seu@email.com"
-            required
-          />
-        </div>
+          <div className="space-y-2">
+            <Label htmlFor="email" className="text-sm font-medium text-gray-300">
+              Email
+            </Label>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Mail className="h-5 w-5 text-gray-500 group-focus-within:text-primary transition-colors" />
+              </div>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="seu@email.com"
+                className="pl-10 bg-gray-800/50 border-gray-700/50 focus:border-primary focus:ring-primary/30 transition-all"
+                required
+              />
+            </div>
+          </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="phoneNumber">Número de Celular</Label>
-          <Input
-            id="phoneNumber"
-            name="phoneNumber"
-            type="tel"
-            placeholder="(00) 00000-0000"
-            required
-          />
-        </div>
+          <div className="space-y-2">
+            <Label htmlFor="phoneNumber" className="text-sm font-medium text-gray-300">
+              Número de Celular
+            </Label>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Phone className="h-5 w-5 text-gray-500 group-focus-within:text-primary transition-colors" />
+              </div>
+              <Input
+                id="phoneNumber"
+                name="phoneNumber"
+                type="tel"
+                placeholder="(00) 00000-0000"
+                className="pl-10 bg-gray-800/50 border-gray-700/50 focus:border-primary focus:ring-primary/30 transition-all"
+                required
+              />
+            </div>
+          </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="password">Senha</Label>
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="••••••••"
-            required
-          />
+          <div className="space-y-2">
+            <Label htmlFor="password" className="text-sm font-medium text-gray-300">
+              Senha
+            </Label>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Lock className="h-5 w-5 text-gray-500 group-focus-within:text-primary transition-colors" />
+              </div>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                className="pl-10 bg-gray-800/50 border-gray-700/50 focus:border-primary focus:ring-primary/30 transition-all"
+                required
+              />
+            </div>
+          </div>
         </div>
 
         {error && (
-          <div className="text-sm text-red-500">
+          <div className="p-3 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
             {error}
           </div>
         )}
 
         <Button
           type="submit"
-          className="w-full"
+          className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 shadow-lg shadow-primary/25 transition-all hover:shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]"
           disabled={isLoading}
         >
-          {isLoading ? "Criando conta..." : "Criar conta"}
+          {isLoading ? (
+            <div className="flex items-center justify-center">
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+              Criando conta...
+            </div>
+          ) : (
+            "Criar conta"
+          )}
         </Button>
       </form>
     </AuthLayout>
