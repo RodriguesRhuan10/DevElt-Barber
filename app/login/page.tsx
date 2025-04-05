@@ -52,61 +52,59 @@ export default function LoginPage() {
       footerLinkText="Registre-se"
       footerLinkHref="/register"
     >
-      <form onSubmit={onSubmit} className="space-y-6">
-        <div className="space-y-5">
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-gray-300">
-              Email
-            </Label>
-            <div className="relative group">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail className="h-5 w-5 text-gray-500 group-focus-within:text-primary transition-colors" />
-              </div>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="seu@email.com"
-                className="pl-10 bg-gray-800/50 border-gray-700/50 focus:border-primary focus:ring-primary/30 transition-all"
-                required
-              />
+      <form onSubmit={onSubmit} className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="email" className="text-sm font-medium text-gray-300">
+            Email
+          </Label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+              <Mail className="h-4 w-4 text-gray-500" />
             </div>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="seu@email.com"
+              className="pl-8 bg-gray-800/50 border-gray-700/75"
+              required
+            />
           </div>
+        </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="password" className="text-sm font-medium text-gray-300">
-              Senha
-            </Label>
-            <div className="relative group">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-gray-500 group-focus-within:text-primary transition-colors" />
-              </div>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="••••••••"
-                className="pl-10 bg-gray-800/50 border-gray-700/50 focus:border-primary focus:ring-primary/30 transition-all"
-                required
-              />
+        <div className="space-y-2">
+          <Label htmlFor="password" className="text-sm font-medium text-gray-300">
+            Senha
+          </Label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+              <Lock className="h-4 w-4 text-gray-500" />
             </div>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="••••••••"
+              className="pl-8 bg-gray-800/50 border-gray-700/75"
+              required
+            />
           </div>
         </div>
 
         {error && (
-          <div className="p-3 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
+          <div className="text-sm text-red-400 bg-red-500/10 px-3 py-1.5 rounded-md border border-red-500/20">
             {error}
           </div>
         )}
 
         <Button
           type="submit"
-          className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 shadow-lg shadow-primary/25 transition-all hover:shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]"
+          className="w-full bg-primary hover:bg-primary/90 text-white transition-colors"
           disabled={isLoading}
         >
           {isLoading ? (
-            <div className="flex items-center justify-center">
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+            <div className="flex items-center justify-center gap-2">
+              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               Entrando...
             </div>
           ) : (
