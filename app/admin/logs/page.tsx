@@ -25,7 +25,7 @@ interface Log {
 }
 
 const LogsPage = () => {
-  const { data: session, status } = useSession({
+  const { status } = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/")
