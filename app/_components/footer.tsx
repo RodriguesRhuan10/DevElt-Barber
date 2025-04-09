@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Scissors, Instagram, Facebook, Twitter, Github } from "lucide-react"
+import { Code, Instagram, Facebook, Twitter, Github } from "lucide-react"
 
 const Footer = () => {
   return (
@@ -10,14 +10,14 @@ const Footer = () => {
           <div className="flex flex-col items-center justify-between gap-4 border-b border-gray-800 pb-4 sm:flex-row sm:gap-6">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-                <Scissors className="h-4 w-4 text-primary" />
+                <Code className="h-4 w-4 text-primary" />
               </div>
               <div className="flex items-center gap-1.5">
                 <Link
                   href="/"
                   className="text-sm font-semibold text-white transition-colors hover:text-primary"
                 >
-                  DevElt Barber
+                  DevElt
                 </Link>
                 <span className="text-[10px] font-medium text-gray-500">
                   © {new Date().getFullYear()}
